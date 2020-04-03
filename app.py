@@ -24,4 +24,14 @@ def contar(cad1,cad2):
         aparece = cad1.count(cad2)
     return render_template("contar.html",palabra=cad1,letra=cad2,apariciones=aparece)
 
+@app.route('/libro/<int:codigo>',methods=["GET","POST"])
+def buscar(codigo):
+    doc = etree.parse('libros.xml')
+    if codigo in doc.xpath("/biblioteca/libro/codigo/text()"):
+        titulo=doc.xpath("/biblioteca/libro[codigo/text()='%s']/titulo/text()"%codigo)
+        autor=doc.xpath("/biblioteca/libro[codigo/text()='%s']/titulo/text()"%codigo)
+    else:
+        abort(404)
+    return render_template("buscar.html",titulo=titulo,autor=autor)
+
 app.run(debug=True)
