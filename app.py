@@ -16,4 +16,12 @@ def potencia(base,exponente):
         resultado = 1/(base**abs(exponente))
     return render_template("potencia.html",ba=base,ex=exponente,res=resultado)
 
+@app.route('/cuenta/<cad1>/<cad2>',methods=["GET","POST"])
+def contar(cad1,cad2):
+    if cad2 == " ":
+        abort(404)
+    else:
+        aparece = cad1.count(cad2)
+    return render_template("contar.html",palabra=cad1,letra=cad2,apariciones=aparece)
+
 app.run(debug=True)
