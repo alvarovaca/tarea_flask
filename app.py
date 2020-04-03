@@ -27,9 +27,9 @@ def contar(cad1,cad2):
 @app.route('/libro/<int:codigo>',methods=["GET","POST"])
 def buscar(codigo):
     doc = etree.parse('libros.xml')
-    if codigo in doc.xpath("/biblioteca/libro/codigo/text()"):
-        titulo=doc.xpath("/biblioteca/libro[codigo/text()='%s']/titulo/text()"%codigo)
-        autor=doc.xpath("/biblioteca/libro[codigo/text()='%s']/titulo/text()"%codigo)
+    if str(codigo) in doc.xpath("/biblioteca/libro/codigo/text()"):
+        titulo=doc.xpath("/biblioteca/libro[codigo/text()='%s']/titulo/text()"%codigo)[0]
+        autor=doc.xpath("/biblioteca/libro[codigo/text()='%s']/autor/text()"%codigo)[0]
     else:
         abort(404)
     return render_template("buscar.html",titulo=titulo,autor=autor)
