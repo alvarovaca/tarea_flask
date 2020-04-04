@@ -6,7 +6,7 @@ app = Flask (__name__)
 def inicio():
     return render_template("inicio.html")
 
-@app.route('/potencia/<int:base>/<int:exponente>',methods=["GET","POST"])
+@app.route('/potencia/<int:base>/<int:exponente>')
 def potencia(base,exponente):
     if exponente > 0:
         resultado = base**exponente
@@ -16,7 +16,7 @@ def potencia(base,exponente):
         resultado = 1/(base**abs(exponente))
     return render_template("potencia.html",ba=base,ex=exponente,res=resultado)
 
-@app.route('/cuenta/<cad1>/<cad2>',methods=["GET","POST"])
+@app.route('/cuenta/<cad1>/<cad2>')
 def contar(cad1,cad2):
     if cad2 == " ":
         abort(404)
@@ -24,7 +24,7 @@ def contar(cad1,cad2):
         aparece = cad1.count(cad2)
     return render_template("contar.html",palabra=cad1,letra=cad2,apariciones=aparece)
 
-@app.route('/libro/<int:codigo>',methods=["GET","POST"])
+@app.route('/libro/<int:codigo>')
 def buscar(codigo):
     doc = etree.parse('libros.xml')
     if str(codigo) in doc.xpath("/biblioteca/libro/codigo/text()"):
